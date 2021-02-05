@@ -11,6 +11,7 @@
   "author": "Alan Shaw",
   "license": "MIT",
   "dependencies": {
+    "@glif/filecoin-address": "^1.1.0-beta.18",
     "@ipld/dag-cbor": "^3.0.0",
     "array-shuffle": "^2.0.0",
     "libp2p": "^0.30.6",

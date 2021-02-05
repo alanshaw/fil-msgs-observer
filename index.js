@@ -11,6 +11,7 @@ import PeerID from 'peer-id'
 import { HelloMessage, LatencyMessage } from './hello.js'
 import { BOOTSTRAPPERS } from './bootstrappers.js'
 import { nowUnixNano } from './utils.js'
+import { SignedMessage } from './chain.js'
 
 const NETWORK_NAME = 'testnetnet'
 const MSGS_TOPIC = `/fil/msgs/${NETWORK_NAME}`
@@ -68,7 +69,7 @@ async function main () {
     .on('peer:connect', conn => console.log(`Peer connected: ${conn.remoteAddr}`))
     .on('peer:disconnect', conn => console.log(`Peer disconnected: ${conn.remoteAddr}`))
 
-  node.pubsub.on(MSGS_TOPIC, msg => console.log(`${msg.from}:`, dagcbor.decode(msg.data)))
+  node.pubsub.on(MSGS_TOPIC, msg => console.log(`${msg.from}:`, SignedMessage.decodeCBOR(dagcbor.decode(msg.data))))
   // node.pubsub.on(MSGS_TOPIC, msg => console.log(`Received message from: ${msg.from}`))
   await node.pubsub.subscribe(MSGS_TOPIC)
   console.log(`Subscribed to: ${MSGS_TOPIC}`)
